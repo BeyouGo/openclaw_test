@@ -4,14 +4,6 @@
 }
 
 :8443 {
-  @notOptions {
-    not method OPTIONS
-  }
-
-  basicauth @notOptions {
-    {env.BASIC_AUTH_USER} {env.BASIC_AUTH_PASSWORD_HASH}
-  }
-
   @api {
     path /api/*
   }
@@ -20,8 +12,18 @@
     reverse_proxy api:4000
   }
 
+  @protected {
+    not path /api/*
+    not method OPTIONS
+  }
+
+  basicauth @protected {
+    {env.BASIC_AUTH_USER} {env.BASIC_AUTH_PASSWORD_HASH}
+  }
+
   handle {
     root * /srv/www
+    try_files {path} /index.html
     file_server
   }
 }
