@@ -66,6 +66,7 @@ const apiBase = import.meta.env.VITE_API_BASE_URL ?? "/api";
 const fetchInteractions = async () => {
   const response = await fetch(`${apiBase}/interactions`, {
     headers: { Authorization: `Bearer ${props.token}` },
+    credentials: "include",
   });
   if (response.ok) {
     const data = await response.json();
@@ -82,6 +83,7 @@ const submitInteraction = async () => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${props.token}`,
       },
+      credentials: "include",
       body: JSON.stringify(form),
     });
     form.title = "";
