@@ -27,7 +27,7 @@ async function buildServer() {
   await app.register(authPlugin);
 
   app.get("/api/health", async () => ({ status: "ok" }));
-  await app.register(registerInteractionRoutes);
+  await registerInteractionRoutes(app);
 
   return app;
 }
