@@ -19,7 +19,7 @@ export default fp(async function authPlugin(app: FastifyInstance) {
       try {
         await request.jwtVerify();
       } catch (err) {
-        reply.code(401).send({ error: "UNAUTHORIZED" });
+        reply.code(403).send({ error: "FORBIDDEN" });
       }
     }
   );
@@ -35,7 +35,7 @@ export default fp(async function authPlugin(app: FastifyInstance) {
     const isPasswordValid = await argon2.verify(env.ADMIN_PASSWORD_HASH, body.password);
 
     if (!isEmailValid || !isPasswordValid) {
-      return reply.code(401).send({ error: "INVALID_CREDENTIALS" });
+      return reply.code(403).send({ error: "INVALID_CREDENTIALS" });
     }
 
     const token = app.jwt.sign({ sub: env.ADMIN_EMAIL }, { expiresIn: "1h" });
