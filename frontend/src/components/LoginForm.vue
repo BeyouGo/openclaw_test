@@ -28,12 +28,13 @@ const email = ref("sauvage.mehdi95@gmail.com");
 const password = ref("");
 const error = ref("");
 const loading = ref(false);
+const apiBase = import.meta.env.VITE_API_BASE_URL ?? "/api";
 
 const handleSubmit = async () => {
   error.value = "";
   loading.value = true;
   try {
-    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/login`, {
+    const response = await fetch(`${apiBase}/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email: email.value, password: password.value }),

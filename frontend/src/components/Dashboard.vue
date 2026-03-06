@@ -61,7 +61,7 @@ const interactions = ref<Interaction[]>([]);
 const submitting = ref(false);
 const form = reactive({ title: "", description: "" });
 
-const apiBase = `${import.meta.env.VITE_API_BASE_URL}`;
+const apiBase = import.meta.env.VITE_API_BASE_URL ?? "/api";
 
 const fetchInteractions = async () => {
   const response = await fetch(`${apiBase}/interactions`, {
