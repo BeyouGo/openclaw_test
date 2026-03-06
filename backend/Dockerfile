@@ -4,10 +4,12 @@ WORKDIR /app
 
 FROM base AS deps
 COPY package*.json ./
+COPY prisma.config.js ./
 RUN npm install --omit=dev
 
 FROM base AS build
 COPY package*.json ./
+COPY prisma.config.js ./
 RUN npm install
 COPY tsconfig.json ./
 COPY prisma ./prisma
@@ -19,6 +21,7 @@ WORKDIR /app
 ENV NODE_ENV=production
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/package*.json ./
+COPY --from=build /app/prisma.config.js ./prisma.config.js
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/prisma ./prisma
 COPY docker-entrypoint.sh ./docker-entrypoint.sh
