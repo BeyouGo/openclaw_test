@@ -28,7 +28,7 @@ services:
       SESSION_SECRET: ${SESSION_SECRET}
       ADMIN_EMAIL: ${ADMIN_EMAIL}
       ADMIN_PASSWORD_HASH: ${ADMIN_PASSWORD_HASH}
-      ALLOWED_ORIGINS: https://localhost
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS}
       PORT: 4000
     depends_on:
       - db
