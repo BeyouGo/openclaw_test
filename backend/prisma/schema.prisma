@@ -1,0 +1,19 @@
+// Prisma schema for the OpenClaw secure portal backend
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Interaction {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  channel     String?  @default("portal")
+  payload     Json?
+  createdAt   DateTime @default(now())
+}

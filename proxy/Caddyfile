@@ -1,0 +1,21 @@
+http://0.0.0.0:8443 {
+  admin off
+  auto_https off
+
+  basicauth {
+    {env.BASIC_AUTH_USER} {env.BASIC_AUTH_PASSWORD_HASH}
+  }
+
+  @api {
+    path /api/*
+  }
+
+  handle @api {
+    reverse_proxy api:4000
+  }
+
+  handle {
+    root * /srv/www
+    file_server
+  }
+}
